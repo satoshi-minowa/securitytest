@@ -7,7 +7,7 @@ use stdClass;
 class Confirm {
 	public function handle() {
 		
-		$response = $_REQUEST;
+		$response = $_POST;
 		
 		session_start();
 		if (!isset($_SESSION['id'])) {
@@ -15,11 +15,16 @@ class Confirm {
 			header('Location: /index.html?next='.rawurlencode('user/input.html'));
 		}
 		
+		//変更後のアカウントとパスワード
+		$_SESSION['afterId']       = $response['id'];
+		$_SESSION['afterPassword'] = $response['password'];
+
 		$user = new stdClass();
 		$user->id = $response['id'];
-		$user->password = $response['password'];
+		
 		$response['user'] = $user;
 		
+
 		return $response;
 	}
 }

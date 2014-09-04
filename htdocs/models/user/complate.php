@@ -7,8 +7,6 @@ use libs\Db;
 class Complate {
 	public function handle() {
 		
-		$response = $_REQUEST;
-		
 		session_start();
 		if (!isset($_SESSION['id'])) {
 			// 未ログイン
@@ -16,16 +14,18 @@ class Complate {
 		}
 		
 		// DB更新
-		$id =  $response['id'];
-		$pass = $response['password'];
-		$sid = $_SESSION['id'];
-		$sql = "UPDATE M_USER SET id = '$id', password = '$pass' WHERE id = '$sid';";
-		$con = Db::getConnection();
-		$con->updateQuery($sql);
+		$id   = $_SESSION['afterId'];
+		$pass = $_SESSION['afterPassword'];
+		$sid  = $_SESSION['id'];
+		
+		$pdo = Db::getInstance();
+		$sql = "UPDATE M_USER SET id = ? , password = ? WHERE id = ?;";
+		
+		$result = $pdo->selectQuery($sql, array($id, $pass, $sid));
 		
 		// セッション情報更新
 		$_SESSION['id'] = $id;
-		
-		return $response;
+
+		return array();
 	}
 }

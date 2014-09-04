@@ -7,7 +7,7 @@ use libs\Db;
 class Input {
 	public function handle() {
 		
-		$response = $_REQUEST;
+		$response = $_POST;
 		
 		session_start();
 		if (!isset($_SESSION['id'])) {
@@ -16,10 +16,17 @@ class Input {
 		}
 		
 		$id = $_SESSION['id'];
-		$sql = "SELECT * FROM M_USER WHERE ID='$id'";
-		$conn = Db::getConnection();
-		$result = $conn->selectQuery($sql);
-		$user = $result->fetch_object();
+		
+		$pdo = Db::getInstance();
+		
+		$sql = "SELECT * FROM M_USER WHERE ID= ? ";
+		
+		$result = $pdo->selectQuery($sql, array($id));
+		$row = $result->fetch();
+		$user = (object)$row;
+
+		$result->closeCursor();	// Ú‘±‚ğƒNƒ[ƒY‚·‚é
+		
 		$response['user'] = $user;
 		
 		return $response;

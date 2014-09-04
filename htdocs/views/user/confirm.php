@@ -12,9 +12,7 @@
       <form>
         <p>
           アカウント：<?php echo $user->id; ?><br>
-          パスワード：<?php echo $user->password; ?><br>
-          <input type="hidden" name="id" value="<?php echo $user->id; ?>">
-          <input type="hidden" name="password" value="<?php echo $user->password; ?>">
+          パスワード：●●●●<br>
           <input type="submit" formaction="/user/input.html" value="戻る">
           <input type="submit" formaction="/user/complate.html" value="変更">
         <p>
