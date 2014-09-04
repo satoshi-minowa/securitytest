@@ -9,10 +9,10 @@
     <section>
       <h2>ユーザー情報　変更</h2>
       <p>ユーザー情報を変更できます。</p>
-      <form action="/user/confirm.html">
+      <form method="post" action="/user/confirm.html">
         <p>
           アカウント：<input type="text" name="id" value="<?php echo $user->id; ?>"><br>
-          パスワード：<input type="text" name="password" value="<?php echo $user->password; ?>"><br>
+          パスワード：<input type="password" name="password" value="<?php echo $user->password; ?>"><br>
           <input type="submit" value="確認">
         <p>
       </form>
